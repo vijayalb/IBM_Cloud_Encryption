@@ -94,22 +94,23 @@ def upload():
 # Downloading the file.
 @app.route('/download', methods=['POST'])
 def download():
-    # Gathering file information to download.
-    file_name = request.form['filename']
-    version_number = request.form['version']
+    if request.method == 'POST':
+        # Gathering file information to download.
+        file_name = request.form['filename']
+        version_number = request.form['version']
 
-    # Iterating through the database to find the file.
-    for document in my_database:
-        if document['file_name'] == file_name:
-            if int(document['version_number']) == int(version_number):
-                file = document.get_attachment(file_name, attachment_type='binary')
-                response = make_response(file)
-                response.headers["Content-Disposition"] = "attachment; filename=%s" % file_name
-                return response
+        # Iterating through the database to find the file.
+        for document in my_database:
+            if document['file_name'] == file_name:
+                if int(document['version_number']) == int(version_number):
+                    file = document.get_attachment(file_name, attachment_type='binary')
+                    response = make_response(file)
+                    response.headers["Content-Disposition"] = "attachment; filename=%s" % file_name
+                    return response
 
-        else:
-            response = 'File not found.'
-            return render_template('response.html', response=response)
+            else:
+                response = 'File not found.'
+                return render_template('response.html', response=response)
 
     return 'Error'
 
@@ -117,20 +118,21 @@ def download():
 # Deleting the file.
 @app.route('/delete', methods=['POST'])
 def delete():
-    # Gathering file information to download.
-    file_name = request.form['filename']
-    version_number = request.form['version']
+    if request.method == 'POST':
+        # Gathering file information to download.
+        file_name = request.form['filename']
+        version_number = request.form['version']
 
-    # Iterating through the database to find the file.
-    for document in my_database:
-        if document['file_name'] == file_name:
-            if int(document['version_number']) == int(version_number):
-                document.delete()
-                response = "File Deleted."
+        # Iterating through the database to find the file.
+        for document in my_database:
+            if document['file_name'] == file_name:
+                if int(document['version_number']) == int(version_number):
+                    document.delete()
+                    response = "File Deleted."
+                    return render_template('response.html', response=response)
+            else:
+                response = "File Not Found."
                 return render_template('response.html', response=response)
-        else:
-            response = "File Not Found."
-            return render_template('response.html', response=response)
 
     return 'Error'
 
@@ -138,13 +140,14 @@ def delete():
 # Listing the cloud files.
 @app.route('/list_files', methods=['GET'])
 def list_files():
-    file_list = []
-    for document in my_database:
-        fileinfo = {}
-        fileinfo['filename'] = document['file_name']
-        fileinfo['version'] = document['version_number']
-        fileinfo['last_modified'] = document['last_modified']
-        file_list.append(fileinfo)
+    if request.method == 'GET':
+        file_list = []
+        for document in my_database:
+            fileinfo = {}
+            fileinfo['filename'] = document['file_name']
+            fileinfo['version'] = document['version_number']
+            fileinfo['last_modified'] = document['last_modified']
+            file_list.append(fileinfo)
     return render_template('list.html', files=file_list)
 
 port = os.getenv('VCAP_APP_PORT', '4500')
