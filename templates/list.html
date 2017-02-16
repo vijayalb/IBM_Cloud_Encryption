@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Python Flask Starter Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+  </head>
+
+ <body>
+  <div class="container">
+   <h3 align="center"><b>IBM BLUEMIX CLOUDANT</b></h3><br>
+   <h4 align="center">List of Files</h4>
+   <table>
+     <thead>
+      <tr>
+        <th>File Name</th>
+        <th>Version</th>
+        <th>Last_Modified</th>
+      </tr>
+     </thead>
+     <tbody>
+      {% for n in files %}
+        <tr>
+          <td>{{ n.filename }}</td>
+          <td>{{ n.version }}</td>
+          <td>{{ n.last_modified }}</td>
+        </tr>
+      {% endfor %}
+     </tbody>
+   </table>
+  </div>
+  <div align="center">
+    <form action="/">
+      <input type="submit" value="Back" />
+    </form>
+  </div>
+ </body>
+
+</html>

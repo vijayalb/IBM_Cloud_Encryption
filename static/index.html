@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Python Flask Starter Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">      
+       <h3 align="center"><b>IBM BLUEMIX CLOUDANT</b></h3><br>
+
+       <div align="center">
+       <form id="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
+         <h5 align="center"><b>Upload File</b></h5>
+         <input id="input-1" type="file" class="file" name="file"  accept="uploaded_files/*" multiple><br>
+         <input type="submit" name="upload" value="Upload">
+       </form>
+       </div><br/>
+       
+       <div align="center">
+       <form id="download_form" action="/download" method="POST">
+         <h5 align="center"><b>Download File</b></h5>
+         File Name: <input type="text" name="filename" placeholder="Enter file name">
+         Version Number: <input type="text" name="version" placeholder="Enter file version number"><br><br>
+         <input type="submit" name="download" value="Download">
+       </form>
+       </div><br/>
+        
+       <div align="center">
+       <form id="delete_form" action="/delete" method="POST">
+         <h5 align="center"><b>Delete File</b></h5>
+         File Name: <input type="text" name="filename" placeholder="Enter file name">
+         Version Number: <input type="text" name="version" placeholder="Enter file version number"><br><br>
+         <input type="submit" name="delete" value="Delete">
+       </form>
+       </div><br/>
+
+       <div align="center">
+       <form action="/list_files" enctype="multipart/form-data" method="GET">
+         <h5 align="center"><b>List Files</b></h5>
+         <input type="submit" name="list" value="List">
+       </form>
+       </div><br/>
+
+  </div>
+ </body>
+</html>
